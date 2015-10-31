@@ -267,7 +267,6 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 
 - (NSString *) stringFromFormat:(NSString *)format withValue:(NSInteger)value
 {
-    NSString * localeFormat = [NSString stringWithFormat:format, [self getLocaleFormatUnderscoresWithValue:value]];
     return [NSString stringWithFormat:format, value];
 }
 
@@ -315,20 +314,6 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
  */
 -(NSString *)getLocaleFormatUnderscoresWithValue:(double)value
 {
-    NSString *localeCode = [[NSLocale preferredLanguages] objectAtIndex:0];
-    
-    // Russian (ru)
-    if([localeCode isEqual:@"ru"]) {
-        int XY = (int)floor(value) % 100;
-        int Y = (int)floor(value) % 10;
-        
-        if(Y == 0 || Y > 4 || (XY > 10 && XY < 15)) return @"";
-        if(Y > 1 && Y < 5 && (XY < 10 || XY > 20))  return @"_";
-        if(Y == 1 && XY != 11)                      return @"__";
-    }
-    
-    // Add more languages here, which are have specific translation rules...
-    
     return @"";
 }
 
